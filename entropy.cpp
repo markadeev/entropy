@@ -3,24 +3,23 @@
 #include <fstream>
 #include <unordered_map>
 #include <cmath>
-using namespace std;
 
 int main(int argc, char** argv){
 	// read the file provided in argv[1] into inputfile
-	ifstream inputfile(argv[1], ios::binary);
+	std::ifstream inputfile(argv[1], std::ios::binary);
 	// check if the file is opened
 	if (!inputfile.is_open()){
-		cout << "Failed to open file.\nUse ./entropy file.txt or ./entropy /root/Downloads/1.jpg" << endl;
+		std::cout << "Failed to open file.\nUse ./entropy file.txt or ./entropy /root/Downloads/1.jpg" << std::endl;
 		return 1;
 	}
 	// fill the vector with bytes from inputfile
 	// unsigned char is treated as raw binary data
-	vector<unsigned char> buffer(istreambuf_iterator<char>(inputfile), {});
+	std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(inputfile), {});
 	int bufsize = buffer.size();
 	inputfile.close();
 
 	// create hashmap to count byte frequencies
-	unordered_map<unsigned char, int> counts;
+	std::unordered_map<unsigned char, int> counts;
 	for (auto c : buffer){
 		counts[c]++;
 	}
@@ -34,8 +33,8 @@ int main(int argc, char** argv){
 		entropy -= p * log2(p);
 	}
 
-	cout << "Bytes: " << bufsize << endl;
-	cout << "Entropy: " << entropy << endl;
+	std::cout << "Bytes: " << bufsize << std::endl;
+	std::cout << "Entropy: " << entropy << std::endl;
 
 	return 0;
 }
